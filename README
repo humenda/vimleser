@@ -1,0 +1,44 @@
+**Note:** This project is in a very early stage. Patches and suggestions
+welcome.
+
+Vimleser
+===========
+
+About
+------
+
+This plugin adds certain screen reading facility to Vim. The purpose is enhance
+existing screen reading facilities of any screen reader and not to be a
+replacement, as for instance Emacsspeak. The purpose is to provide additional
+announcements that are only possible form within Vim.
+
+Current functions are:
+
+-   say current file name
+
+Installation
+-------------
+
+With vim 8 and above:
+
+```
+# Replace with path with your actual plugin path or copy/paste if you haven't
+# installed a plugin with this method before.
+$ mkdir -p ~/.vim/pack/external/start
+$ cd ~/.vim/pack/external/start
+$ git clone https://github.com/humenda/vimleser
+```
+
+To Do
+-----
+
+A unordered list of things to be done:
+
+-   Speak current line number.
+-   Flexible volume/speech adjustation.
+-   Multi-language support.
+-   Read all, i.e. from current position to the end of the document.
+-   Add configuration options.
+-   Add option to speak only relative to current Git, if file is within a git
+    repo
+-   Write a vim help file.
