@@ -44,7 +44,7 @@ def stop_speech():
 init_speechd()
 EOF
 
-map \sl :py3 announce_lineno()<cr>
-map \st :py3 announce_buffer_name()<cr>
-map \ss :py3 stop_speech()<cr>
+map <leader>sl :py3 announce_lineno()<cr>
+map <leader>st :py3 announce_buffer_name()<cr>
+map <leader>ss :py3 stop_speech()<cr>
 map <C-s> :py3 stop_speech()<cr>
