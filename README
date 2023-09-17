@@ -19,7 +19,15 @@ Current functions are:
 Installation
 -------------
 
-With vim 8 and above:
+Prerequisite: Vim with Python support and the Python speechd module. On
+Debian-based systems (including Ubuntu, Mint, …):
+
+```
+$ sudo apt install vim-nox python3-speechd
+```
+
+The plugin can be easily installed using Vim's integrated package manager,
+available with Vim >= 8:
 
 ```
 # Replace with path with your actual plugin path or copy/paste if you haven't
