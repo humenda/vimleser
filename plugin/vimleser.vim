@@ -15,7 +15,7 @@ def init_speechd():
     SPD_CLIENT.set_pitch(-30)
     SPD_CLIENT.set_punctuation("all")
 
-def say_buffer_name():
+def announce_buffer_name():
     """Speak the current buffer name.
     To avoid waiting for the file name in a long path, the path is spoken first and $HOME is stripped.
     """
@@ -29,6 +29,14 @@ def say_buffer_name():
     bufname = os.path.basename(bufname)
     SPD_CLIENT.speak(f"{bufname} in {bufpath}")
 
+def announce_lineno():
+    """Announce current line.
+    As using the range would effectively absorb it (i.e. visual mode), this
+    remains unimplemented: querying the exact position in a range if the range
+    is lost right after the announcement it useless. """
+    SPD_CLIENT.speak(f"{vim.current.range.end + 1}")
+
+
 def stop_speech():
     """Interrupt current speech."""
     SPD_CLIENT.stop()
@@ -36,6 +44,7 @@ def stop_speech():
 init_speechd()
 EOF
 
-map \st :py3 say_buffer_name()<cr>
+map \sl :py3 announce_lineno()<cr>
+map \st :py3 announce_buffer_name()<cr>
 map \ss :py3 stop_speech()<cr>
 map <C-s> :py3 stop_speech()<cr>

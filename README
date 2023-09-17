@@ -15,6 +15,7 @@ announcements that are only possible form within Vim.
 Current functions are:
 
 -   say current file name
+-   say current line number
 
 Installation
 -------------
