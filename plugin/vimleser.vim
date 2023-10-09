@@ -1,4 +1,5 @@
-" ToDo: vimleser
+" A "vim reader" that augments an existing screen reader with additional functionality.
+
 :py3 <<EOF
 import os
 
@@ -9,6 +10,11 @@ SPD_CLIENT = None
 def init_speechd():
     """Initialse and set up the speech dispatcher client."""
     global SPD_CLIENT
+    if SPD_CLIENT:
+        try: # try to end old session, if applicable
+            SPD_CLIENT.close()
+        except:
+            pass
     SPD_CLIENT = speechd.Client()
     SPD_CLIENT.set_rate(80)
     SPD_CLIENT.set_volume(-10)
@@ -29,7 +35,7 @@ def announce_buffer_name():
     bufname = os.path.basename(bufname)
     SPD_CLIENT.speak(f"{bufname} in {bufpath}")
 
-def announce_lineno():
+def __announce_lineno():
     """Announce current line.
     As using the range would effectively absorb it (i.e. visual mode), this
     remains unimplemented: querying the exact position in a range if the range
@@ -37,11 +43,24 @@ def announce_lineno():
     SPD_CLIENT.speak(f"{vim.current.range.end + 1}")
 
 
-def stop_speech():
+def __stop_speech():
     """Interrupt current speech."""
     SPD_CLIENT.stop()
 
+def perform_safely(func):
+    """Perform an action. If it fails, restart the speechd client."""
+    try:
+        func()
+    except speechd.client.SSIPCommunicationError:
+        init_speechd()
+        try:
+            func()
+        except speechd.client.SSIPCommunicationError:
+            print("Error: no connection to speechd possible.")
+
 init_speechd()
+stop_speech = lambda: perform_safely(__stop_speech)
+announce_lineno = lambda: perform_safely(__announce_lineno)
 EOF
 
 map <leader>sl :py3 announce_lineno()<cr>
