@@ -21,7 +21,7 @@ def init_speechd():
     SPD_CLIENT.set_pitch(-30)
     SPD_CLIENT.set_punctuation("all")
 
-def announce_buffer_name():
+def __announce_buffer_name():
     """Speak the current buffer name.
     To avoid waiting for the file name in a long path, the path is spoken first and $HOME is stripped.
     """
@@ -61,6 +61,7 @@ def perform_safely(func):
 init_speechd()
 stop_speech = lambda: perform_safely(__stop_speech)
 announce_lineno = lambda: perform_safely(__announce_lineno)
+announce_buffer_name = lambda: perform_safely(__announce_buffer_name)
 EOF
 
 map <leader>sl :py3 announce_lineno()<cr>
